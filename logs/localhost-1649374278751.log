@@ -1,0 +1,45 @@
+react-dom.development.js:29574 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+react-dom.development.js:86 Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+render @ react-dom.development.js:29404
+./src/index.js @ index.js:8
+options.factory @ react refresh:6
+__webpack_require__ @ bootstrap:24
+(anonymous) @ startup:7
+(anonymous) @ startup:7
+react-dom.development.js:86 Warning: useEffect must not return anything besides a function, which is used for clean-up.
+
+It looks like you wrote useEffect(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately:
+
+useEffect(() => {
+  async function fetchData() {
+    // You can await here
+    const response = await MyAPI.getData(someId);
+    // ...
+  }
+  fetchData();
+}, [someId]); // Or [] if effect doesn't need props or state
+
+Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching
+    at SignIn (http://localhost:3000/static/js/bundle.js:821:51)
+    at Outlet (http://localhost:3000/static/js/bundle.js:81247:26)
+    at Navigation
+    at Routes (http://localhost:3000/static/js/bundle.js:81339:5)
+    at App
+    at Router (http://localhost:3000/static/js/bundle.js:81272:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:80081:5)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+commitHookEffectListMount @ react-dom.development.js:23003
+commitPassiveMountOnFiber @ react-dom.development.js:24702
+commitPassiveMountEffects_complete @ react-dom.development.js:24666
+commitPassiveMountEffects_begin @ react-dom.development.js:24653
+commitPassiveMountEffects @ react-dom.development.js:24641
+flushPassiveEffectsImpl @ react-dom.development.js:26848
+flushPassiveEffects @ react-dom.development.js:26801
+(anonymous) @ react-dom.development.js:26597
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+sign-in-component.jsx:14 null

@@ -38,3 +38,38 @@ const myAsyncFunction = async () => {
   }
 };
 ```
+
+## useEffect
+
+### Yihua's code
+
+```js
+useEffect(async () => {
+  const response = await getRedirectResult(auth);
+  console.log(response);
+}, []);
+```
+
+refer to './logs/localhost-1649374278751.log'
+
+query = "Instead, write the async function inside your effect and call it immediately"
+https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
+
+### Here's my refactor
+
+```js
+useEffect(() => {
+  async function getResponse() {
+    const response = await getRedirectResult(auth);
+    console.log(response);
+  }
+  getResponse();
+});
+```
+
+Longer term we'll discourage this pattern because it encourages race conditions. Such as — anything could happen between your call starts and ends, and you could have gotten new props. Instead, we'll recommend Suspense for data fetching which will look more like
+
+You can read more about experimental suspense here.
+
+https://17.reactjs.org/docs/concurrent-mode-suspense.html
+https://reactjs.org/docs/react-api.html#reactsuspense
