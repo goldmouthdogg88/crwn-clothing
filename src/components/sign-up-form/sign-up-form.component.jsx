@@ -27,6 +27,7 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (password !== confirmPassword) {
       alert("passwords do not match");
       return;
@@ -40,12 +41,11 @@ const SignUpForm = () => {
 
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
-      // .then('Confirm to user that they've successfully signed up')
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");
       } else {
-        console.log("use createion encountered an error", error);
+        console.log("user creation encountered an error", error);
       }
     }
   };
@@ -86,7 +86,6 @@ const SignUpForm = () => {
           onChange={handleChange}
           name="password"
           value={password}
-          minLength="8"
         />
 
         <FormInput
@@ -96,9 +95,8 @@ const SignUpForm = () => {
           onChange={handleChange}
           name="confirmPassword"
           value={confirmPassword}
-          minLength="8"
         />
-        <Button type="submit">Sign up</Button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
