@@ -1,10 +1,15 @@
-import Button from "../button/button.component";
-import "../form-input/form-input.styles.scss";
-
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const auth = getAuth();
+import FormInput from "../form-input/form-input.component";
+import Button from "../button/button.component";
+
+import {
+  signinWithGooglePopup,
+  createUserDocumentFromAuth,
+  signInAuthUserWithEmailAndPassword,
+} from "../../utils/firebase/firebase.utils";
+
+import "./sign-in-form.styles.scss";
 
 const defaultFormFields = {
   email: "",
@@ -15,26 +20,29 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  console.log("formFields", formFields);
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
+  const signInWithGoogle = async () => {
+    const { user } = await signinWithGooglePopup();
+    await createUserDocumentFromAuth(user);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    // Check if email and password match
-    console.log("userCredential.user", userCredential.user);
-    alert("You have successfully logged in!");
-    window.location.href("localhost:3000/");
-    // console.log("Object.keys(userCredential)", Object.keys(userCredential));
-    // Where do we get the user's email and password from
-    // Or is this something that Firebase provides somehow
+
+    resetFormFields();
+    // .then('Confirm to user that they've successfully signed up')
+
+    try {
+      const response = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      console.log(response);
+      resetFormFields();
+    } catch (error) {}
   };
 
   const handleChange = (event) => {
@@ -44,13 +52,12 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="group">
-      <h2>I already have an account</h2>
-      <span>Sign in with your email and password</span>
+    <div className="sign-up-container">
+      <h2>Already have an account?</h2>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
-        <label>email</label>
-        <input
-          className="form-input"
+        <FormInput
+          label="Email"
           type="email"
           required
           onChange={handleChange}
@@ -58,19 +65,22 @@ const SignInForm = () => {
           value={email}
         />
 
-        <label>password</label>
-        <input
-          className="form-input"
+        <FormInput
+          label="Password"
           type="password"
           required
           onChange={handleChange}
           name="password"
           value={password}
+          minLength="8"
         />
-        <Button type="submit">SIGN IN</Button>
-        <Button type="submit" buttonType="google">
-          SIGN IN WITH GOOGLE
-        </Button>
+
+        <div className="buttons-container">
+          <Button type="submit">Sign In</Button>
+          <Button buttonType="google" onClick={signInWithGoogle}>
+            Google sign in
+          </Button>
+        </div>
       </form>
     </div>
   );
