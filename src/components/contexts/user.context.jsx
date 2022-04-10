@@ -180,7 +180,7 @@ export const UserProvider = ({ children }) => {
             Anything outside will not be able to access the context. So here inside of app, we know that we want our sign in form to be able
             to access this context.
 
-            Because, whenever the user sign in, we want to actauly take this user objec tan d we want to store it inside of the context.
+            Because, whenever the user sign in, we want to actauly take this user object and we want to store it inside of the context.
             So to do this we need two things. 
 
 
@@ -190,14 +190,13 @@ export const UserProvider = ({ children }) => {
             2. Bring in i.e. import { UserContext } object
 
             this object is going to give us back any value that is passed in as the value.
-            Which is the currentUser of useState as well as the setter function setCurrentUser.
+            Which is the (currentUser) of useState as well as the setter function setCurrentUser.
 
             So this value, we've instantiate it as an object. So we'll get this exact object
-            back with whatever the curretUser value inside of the UserProvier useState is currently
-            set at.
+            back with whatever the currentUser value inside of the UserProvier's useState is set at.
 
 
-            To use this, what we need to do is. 
+            So here, in order to utilize this, what we need to dois come down here and we'll say const is equal to useContext passing in the userContext 
 
 
 */

@@ -1,3 +1,32 @@
+# Section 7 Challenge
+
+my challenge to you.
+
+I want you to utilize useContext and UserContext for sign up form.
+
+So also set the user when we successfully authenticate with email and password.
+
+So what are useContext and UserContext?
+
+useContext: is a React Hook.
+UserContext:
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 # Asynchronous Communication in JavaScript
 
 ## Promise(s)
